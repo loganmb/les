@@ -2,11 +2,11 @@
 
 
 require_once('../inc/database.php');
-
+$result = null;
 function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco = null)
 {
 	$database = open_database();
-	$result = null;
+	
 	$columns = null;
 	$values = null;
 	
@@ -54,7 +54,7 @@ function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco
 
   
 
-    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.' . $e;
+    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.' . $e->getMessage();;
 
     $_SESSION['type'] = 'danger';
 
@@ -74,7 +74,7 @@ function save_address($pk_forn = null, $endereco = null, $bd =null, $tableA = nu
 	$columns = null;
 	$values = null;
 	
-	#$endereco['fk_forn'] = $pk_forn;
+	$endereco['fk_forn'] = $pk_forn['id'];
 	
 	foreach ($endereco as $key => $value) {
 

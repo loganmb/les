@@ -4,7 +4,7 @@
 
 require_once('../config.php');
 
-require_once('fornecedoresbd.php');
+require_once('../inc/database.php');
 
 require_once(DBAPI);
 
@@ -13,13 +13,6 @@ require_once(DBAPI);
 $fornecedores = null;
 
 $fornecedor = null;
-
-$endereco = null;
-
-
-
-
-
 
 
 /**
@@ -49,7 +42,7 @@ function add() {
 
 
 
-  if ((!empty($_POST['fornecedor'])) and (!empty($_POST['endereco']))) {
+  if ((!empty($_POST['fornecedor']))) {
 
     
 
@@ -60,34 +53,22 @@ function add() {
 
 
     $fornecedor = $_POST['fornecedor'];
-	$endereco = $_POST['endereco'];
 	
     $fornecedor['modified'] = $today->format("Y/m/d");
 	$fornecedor['ativo'] = true;
     
 
-	save_forn('fornecedores', 'endereco', $fornecedor, $endereco);
+	save('fornecedores', $fornecedor);
 	
 	
 
-    #header('location: index.php');
-
-  }
-
-}
-
-function add_address() {
-
-
-
-  if (!empty($_POST['endereco'])) {
-    $endereco = $_POST['endereco'];
-    save('endereco', $endereco);
     header('location: index.php');
 
   }
 
 }
+
+
 
 
 

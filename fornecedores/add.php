@@ -147,14 +147,14 @@
 
       <label for="rua">Rua</label>
 
-      <input type="text" class="form-control" name="endereco['rua']">
+      <input type="text" class="form-control" name="fornecedor['rua']">
 
     </div>
 	<div class="form-group col-md-3">
 
       <label for="campo2">Número</label>
 
-      <input type="text" class="form-control" name="endereco['num']">
+      <input type="text" class="form-control" name="fornecedor['num']">
 
     </div>
 
@@ -163,7 +163,7 @@
 
       <label for="campo2">Cidade</label>
 
-      <input type="text" class="form-control" name="endereco['cidade']">
+      <input type="text" class="form-control" name="fornecedor['cidade']">
 
     </div>
 
@@ -173,7 +173,7 @@
 
       <label for="campo3">CEP</label>
 
-      <input type="text" class="form-control" name="endereco['cep']">
+      <input type="text" class="form-control" name="fornecedor['cep']">
 
     </div>
 
@@ -191,7 +191,7 @@
 
       <label for="campo3">UF</label>
 
-      <input type="text" class="form-control" name="endereco['estado']">
+      <input type="text" class="form-control" name="fornecedor['estado']">
 
     </div>
 	
@@ -199,7 +199,7 @@
 
       <label for="campo1">País</label>
 
-      <input type="text" class="form-control" name="endereco['pais']">
+      <input type="text" class="form-control" name="fornecedor['pais']">
 
     </div>
 </div>
@@ -207,7 +207,7 @@
 		<div class="form-group col-md-8">
 			<label for="campo3">Observação</label>
 
-			<textarea cols="" rows="5" class="form-control" name="endereco['obs']" onkeyup="countChar(this)"></textarea>
+			<textarea cols="" rows="5" class="form-control" name="fornecedor['obs']" onkeyup="countChar(this)"></textarea>
 		</div>
 <div id="charNum"></div>
 
