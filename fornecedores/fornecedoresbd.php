@@ -6,9 +6,10 @@ require_once('../inc/database.php');
 function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco = null)
 {
 	$database = open_database();
-	
+	$result = null;
 	$columns = null;
 	$values = null;
+	
 	$fornecedor['ativo'] = true;
 	foreach ($fornecedor as $key => $value) {
 
@@ -32,11 +33,12 @@ function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco
 
 	$result = $database->query("Select id from fornecedores order by id desc limit 1;");
 	
-	if ($result->num_rows > 0) {
+	if ($result->num_rows > 0) 
+	{
 
 	      $pk_forn = $result->fetch_assoc();
 
-	    }
+	}
 	
 
     $_SESSION['message'] = 'Registro cadastrado com sucesso.';
