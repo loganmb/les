@@ -66,6 +66,62 @@ function add() {
 
   }
 
+
+}
+
+
+/**
+
+ *	Atualizacao/Edicao de Cliente
+
+ */
+
+function edit() {
+
+
+
+  $now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+
+
+
+  if (isset($_GET['id'])) {
+
+
+
+    $id = $_GET['id'];
+
+
+
+    if (isset($_POST['fornecedor'])) {
+
+
+
+      $fornecedor = $_POST['fornecedor'];
+
+      $fornecedor['modified'] = $now->format("Y-m-d H:i:s");
+
+
+
+      update('fornecedores', $id, $fornecedor);
+
+      header('location: index.php');
+
+    } else {
+
+
+
+      global $customer;
+
+      $customer = find('customers', $id);
+
+    } 
+
+  } else {
+
+    header('location: index.php');
+
+  }
+
 }
 
 
