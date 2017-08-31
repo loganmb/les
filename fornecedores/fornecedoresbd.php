@@ -9,7 +9,7 @@ function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco
 	
 	$columns = null;
 	$values = null;
-	
+	$fornecedor['ativo'] = true;
 	foreach ($fornecedor as $key => $value) {
 
     $columns .= trim($key, "'") . ",";
@@ -22,20 +22,29 @@ function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco
 
   $values = rtrim($values, ',');
   
-  $sql = "INSERT INTO " . $tableF . "($columns)" . " VALUES " . "($values) returning pk_forn;";
+  $sql = "INSERT INTO " . $tableF . "($columns)" . " VALUES " . "($values);";
   
   $pk_forn = null;
   
    try {
 
-    $pk_forn = $database->query($sql);
+    $database->query($sql);
 
+	$result = $database->query("Select id from fornecedores order by id desc limit 1;");
+	
+	if ($result->num_rows > 0) {
+
+	      $pk_forn = $result->fetch_assoc();
+
+	    }
 	
 
     $_SESSION['message'] = 'Registro cadastrado com sucesso.';
 
     $_SESSION['type'] = 'success';
 
+	
+	
 	save_address($pk_forn, $endereco, $database, $tableA);
   
 
@@ -43,7 +52,7 @@ function save_forn($tableF = null, $tableA = null, $fornecedor = null, $endereco
 
   
 
-    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
+    $_SESSION['message'] = 'Nao foi possivel realizar a operacao.' . $e;
 
     $_SESSION['type'] = 'danger';
 
@@ -63,7 +72,7 @@ function save_address($pk_forn = null, $endereco = null, $bd =null, $tableA = nu
 	$columns = null;
 	$values = null;
 	
-	$endereco['fk_forn'] = $pk_forn;
+	#$endereco['fk_forn'] = $pk_forn;
 	
 	foreach ($endereco as $key => $value) {
 

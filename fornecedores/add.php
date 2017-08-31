@@ -11,15 +11,21 @@
             dvcnpj = document.getElementById('dvcnpj');
 			dvie = document.getElementById('dvie');
             dvci = document.getElementById('dvci');
+			ie = document.getElementById('ie');
+			cnpj = document.getElementById('cnpj');
+			ci = document.getElementById('ci');
 			
             if (valor == '2') {
                 dvcnpj.style.display = 'block';
 				dvie.style.display = 'block';
+				cnpj.value = '-';
+				ie.value = '-';
 				dvci.style.display = 'none';
-            } else {
+            } else if(valor == '1'){
                 dvcnpj.style.display = 'none';
 				dvie.style.display = 'none';
 				dvci.style.display = 'block';
+				ci.value = '-';
             }
         }
   
@@ -64,7 +70,7 @@
 
       <label for="campo2">Fundação</label>
 
-      <input type="text" class="form-control" name="fonecedor['fundacao']">
+      <input type="text" class="form-control" name="fornecedor['fundacao']">
 
     </div>
 	
@@ -73,7 +79,7 @@
 
       <label for="campo2">Categoria</label>
 
-      <select class="form-control" name="fonecedor['categoria']">
+      <select class="form-control" name="fornecedor['categoria']">
 	  <option value="0"></option>
 		<option value="1" onClick="habilitaCampos('1')">Importador</option>
   		<option value="2" onClick="habilitaCampos('2')">Nacional</option>
@@ -92,7 +98,7 @@
 
       <label for="cnpj">CNPJ</label>
 
-      <input type="text" class="form-control" name="fornecedor['cnpj']">
+      <input id="cnpj" type="text" class="form-control" name="fornecedor['cnpj']">
 
     </div>
 
@@ -102,7 +108,7 @@
 
       <label for="campo3">Inscrição Estadual</label>
 
-      <input type="text" class="form-control" name="fonecedor['ie']">
+      <input id="ie" type="text" class="form-control" name="fornecedor['ie']">
 
     </div>
 	
@@ -113,7 +119,7 @@
 
       <label for="campo3">Certificado de Importador</label>
 
-      <input type="text" class="form-control" name="fonecedor['ci']">
+      <input id="ci" type="text" class="form-control" name="fornecedor['ci']">
 
     </div>
 	
@@ -124,7 +130,7 @@
 
       <label for="campo3">Data de Cadastro</label>
 
-      <input type="text" class="form-control" name="fonecedor['modified']" disabled>
+      <input type="text" class="form-control" name="fornecedor['modified']" disabled>
 
     </div>
 	

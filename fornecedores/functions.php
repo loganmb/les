@@ -49,7 +49,7 @@ function add() {
 
 
 
-  if ((!empty($_POST['fornecedor'])) && (!empty($_POST['endereco']))) {
+  if ((!empty($_POST['fornecedor'])) and (!empty($_POST['endereco']))) {
 
     
 
@@ -62,7 +62,7 @@ function add() {
     $fornecedor = $_POST['fornecedor'];
 	$endereco = $_POST['endereco'];
 	
-    $fornecedor['modified'] = $today->format("Y-m-d");
+    $fornecedor['modified'] = $today->format("Y/m/d");
 	$fornecedor['ativo'] = true;
     
 
@@ -70,7 +70,7 @@ function add() {
 	
 	
 
-    header('location: index.php');
+    #header('location: index.php');
 
   }
 
