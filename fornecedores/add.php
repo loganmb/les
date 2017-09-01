@@ -8,25 +8,24 @@
 
    <script language="JavaScript">
         function habilitaCampos(valor) {
-            dvcnpj = document.getElementById('dvcnpj');
-			dvie = document.getElementById('dvie');
-            dvci = document.getElementById('dvci');
+
 			ie = document.getElementById('ie');
 			cnpj = document.getElementById('cnpj');
 			ci = document.getElementById('ci');
-			
+				
             if (valor == '2') {
-                dvcnpj.style.display = 'block';
-				dvie.style.display = 'block';
-				cnpj.value = '-';
-				ie.value = '-';
-				dvci.style.display = 'none';
+				
+                cnpj.setAttribute("required", "true");
+				ie.setAttribute("required", "true");
+				ci.setAttribute("required", "false");
             } else if(valor == '1'){
-                dvcnpj.style.display = 'none';
-				dvie.style.display = 'none';
-				dvci.style.display = 'block';
-				ci.value = '-';
+                cnpj.setAttribute("required", "false");
+				ie.setAttribute("required", "false");
+				ci.setAttribute("required", "true");
+			
             }
+        
+  
         }
   
 
@@ -133,6 +132,9 @@
       <input type="text" class="form-control" name="fornecedor['modified']" disabled>
 
     </div>
+	
+	
+	
 	
   </div>
   

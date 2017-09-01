@@ -96,24 +96,11 @@
 
 		<td><?php echo $fornecedor['nome']; ?></td>
 		
-		<?php if($fornecedor['categoria'] == "1") 
-		{?>
+		
 			<td><?php echo "Importador"; ?></td>
-			
-			<?php 
-			$fornecedor['cnpj'] = "-" ;
-			$fornecedor['ie'] = "-";
-			?>
-		
-		<?php } ?>
-		
-		<?php if($fornecedor['categoria'] == "2") 
-		{?>
+
 			<td><?php echo "Nacional"; ?></td>
-			
-			<?php $fornecedor['ci'] = "-"; ?>
-		
-		<?php } ?>
+
 		
 		<td><?php echo $fornecedor['cnpj']; ?></td>
 		

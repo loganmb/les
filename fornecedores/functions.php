@@ -110,9 +110,9 @@ function edit() {
 
 
 
-      global $customer;
+      global $fornecedor;
 
-      $customer = find('customers', $id);
+      $fornecedor = find('fornecedores', $id);
 
     } 
 

@@ -14,18 +14,18 @@
 			ie = document.getElementById('ie');
 			cnpj = document.getElementById('cnpj');
 			ci = document.getElementById('ci');
+		
 			
             if (valor == '2') {
-                dvcnpj.style.display = 'block';
-				dvie.style.display = 'block';
-				cnpj.value = '-';
-				ie.value = '-';
-				dvci.style.display = 'none';
+				
+                cnpj.setAttribute("required", "true");
+				ie.setAttribute("required", "true");
+				ci.setAttribute("required", "false");
             } else if(valor == '1'){
-                dvcnpj.style.display = 'none';
-				dvie.style.display = 'none';
-				dvci.style.display = 'block';
-				ci.value = '-';
+                cnpj.setAttribute("required", "false");
+				ie.setAttribute("required", "false");
+				ci.setAttribute("required", "true");
+			
             }
         }
   
@@ -38,6 +38,19 @@
 					  $('#charNum').text(1000 - len);
 			 }
 		};
+		
+		function checkfunc()
+		{
+			ativo = document.getElementById('chbAtivo');
+			
+			if(ativo.checked == true){
+				ativo.value = "1";
+			}
+			else{
+				ativo.value = "0";
+			}
+		}
+		
 	
 	</script>
 
@@ -49,7 +62,7 @@
 
 
 
-<form action="edit.php?id=<?php echo $customer['id']; ?>" method="post">
+<form name="form1" action="edit.php?id=<?php echo $fornecedor['id']; ?>" method="post">
 
   <hr />
 
@@ -59,7 +72,7 @@
 
       <label for="nome">Nome / Razão Social</label>
 
-      <input type="text" class="form-control" name="fornecedor['nome']">
+      <input type="text" class="form-control" name="fornecedor['nome']" value="<?php echo $fornecedor['nome']; ?>">
 
     </div>
 
@@ -67,7 +80,7 @@
 
       <label for="campo2">Fundação</label>
 
-      <input type="text" class="form-control" name="fornecedor['fundacao']">
+      <input type="text" class="form-control" name="fornecedor['fundacao']" value="<?php echo $fornecedor['fundacao']; ?>">
 
     </div>
 	
@@ -76,10 +89,15 @@
 
       <label for="campo2">Categoria</label>
 
-      <select class="form-control" name="fornecedor['categoria']">
-	  <option value="0"></option>
-		<option value="1" onClick="habilitaCampos('1')">Importador</option>
-  		<option value="2" onClick="habilitaCampos('2')">Nacional</option>
+      <select id="slct" class="form-control" name="fornecedor['categoria']" onselect>
+	  <option value="0" selected></option>
+	  
+		<option value="1" onclick="habilitaCampos('1')" 
+		<?php echo $fornecedor['categoria']=='1'?'selected':''; ?> >Importador</option>
+		
+  		<option value="2" onclick="habilitaCampos('2')" 
+		<?php echo $fornecedor['categoria']=='2'?'selected':''; ?> >Nacional</option>
+		
 	  </select>
 
     </div>
@@ -91,32 +109,32 @@
   <div class="row">
   
 
-    <div id="dvcnpj" class="form-group col-md-3" hidden="true">
+    <div id="dvcnpj" class="form-group col-md-3">
 
       <label for="cnpj">CNPJ</label>
 
-      <input id="cnpj" type="text" class="form-control" name="fornecedor['cnpj']">
+      <input id="cnpj" type="text" class="form-control" name="fornecedor['cnpj']" value="<?php echo $fornecedor['cnpj']; ?>">
 
     </div>
 
 
 
-    <div id="dvie" class="form-group col-md-2" hidden="true">
+    <div id="dvie" class="form-group col-md-2">
 
       <label for="campo3">Inscrição Estadual</label>
 
-      <input id="ie" type="text" class="form-control" name="fornecedor['ie']">
+      <input id="ie" type="text" class="form-control" name="fornecedor['ie']" value="<?php echo $fornecedor['ie']; ?>">
 
     </div>
 	
 
 	
 
-	<div id="dvci" class="form-group col-md-3" hidden="true">
+	<div id="dvci" class="form-group col-md-3">
 
       <label for="campo3">Certificado de Importador</label>
 
-      <input id="ci" type="text" class="form-control" name="fornecedor['ci']">
+      <input id="ci" type="text" class="form-control" name="fornecedor['ci']" value="<?php echo $fornecedor['ci']; ?>">
 
     </div>
 	
@@ -127,7 +145,16 @@
 
       <label for="campo3">Data de Cadastro</label>
 
-      <input type="text" class="form-control" name="fornecedor['modified']" disabled>
+      <input type="text" class="form-control" name="fornecedor['modified']" disabled value="<?php echo $fornecedor['modified']; ?>">
+
+    </div>
+	
+	 
+    <div class="form-group col-md-2">
+	
+		<label for="fornecedor['ativo']">Ativo</label>
+		<input id="chbAtivo" type="checkbox" class="form" name="fornecedor['ativo']" onselect="checkfunc()" 
+		<?php echo $fornecedor['ativo']=='1'?'checked':''; ?>>
 
     </div>
 	
@@ -144,14 +171,14 @@
 
       <label for="rua">Rua</label>
 
-      <input type="text" class="form-control" name="fornecedor['rua']">
+      <input type="text" class="form-control" name="fornecedor['rua']" value="<?php echo $fornecedor['rua']; ?>">
 
     </div>
 	<div class="form-group col-md-3">
 
       <label for="campo2">Número</label>
 
-      <input type="text" class="form-control" name="fornecedor['num']">
+      <input type="text" class="form-control" name="fornecedor['num']" value="<?php echo $fornecedor['num']; ?>">
 
     </div>
 
@@ -160,7 +187,7 @@
 
       <label for="campo2">Cidade</label>
 
-      <input type="text" class="form-control" name="fornecedor['cidade']">
+      <input type="text" class="form-control" name="fornecedor['cidade']" value="<?php echo $fornecedor['cidade']; ?>">
 
     </div>
 
@@ -170,7 +197,7 @@
 
       <label for="campo3">CEP</label>
 
-      <input type="text" class="form-control" name="fornecedor['cep']">
+      <input type="text" class="form-control" name="fornecedor['cep']" value="<?php echo $fornecedor['cep']; ?>">
 
     </div>
 
@@ -188,7 +215,7 @@
 
       <label for="campo3">UF</label>
 
-      <input type="text" class="form-control" name="fornecedor['estado']">
+      <input type="text" class="form-control" name="fornecedor['estado']" value="<?php echo $fornecedor['estado']; ?>">
 
     </div>
 	
@@ -196,7 +223,7 @@
 
       <label for="campo1">País</label>
 
-      <input type="text" class="form-control" name="fornecedor['pais']">
+      <input type="text" class="form-control" name="fornecedor['pais']" value="<?php echo $fornecedor['pais']; ?>">
 
     </div>
 </div>
@@ -204,7 +231,8 @@
 		<div class="form-group col-md-8">
 			<label for="campo3">Observação</label>
 
-			<textarea cols="" rows="5" class="form-control" name="fornecedor['obs']" onkeyup="countChar(this)"></textarea>
+			<textarea cols="" rows="5" class="form-control" name="fornecedor['obs']" onkeyup="countChar(this)" value="<?php echo $fornecedor['obs']; ?>">
+			</textarea>
 		</div>
 <div id="charNum"></div>
 
