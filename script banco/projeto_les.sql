@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Set-2017 às 01:51
+-- Generation Time: 02-Set-2017 às 19:09
 -- Versão do servidor: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -52,8 +52,8 @@ CREATE TABLE `fornecedores` (
 --
 
 INSERT INTO `fornecedores` (`id`, `nome`, `cnpj`, `ie`, `ci`, `categoria`, `modified`, `fundacao`, `ativo`, `rua`, `cidade`, `estado`, `pais`, `cep`, `num`, `obs`) VALUES
-(1, 'asdfasdf', 'sadfasdf', 'adsfasdfasdf', '', '2', '2017/08/31', 'asdf', 1, '', '', '', '', '', '', ''),
-(2, '134r', '', '', '145h', '1', '2017/08/31', '5h145h', 1, 'g y ', '3y35yq5y q5yq', 't3 t', '4 t3 ', '45y q45y ', 'q4yq y', '43ty254m4y h');
+(1, 'asdfasdf', '', '', 'hdfs', '2', '2017-09-02', 'asdf', 0, 'alguma', 'essa', 'io', 'agi', 'um ai', 'aqele', '			'),
+(2, '134r', 'q134r1', '41r34r134', '145h', '2', '2017-09-02', '5h145h', 0, 'g y ', '3y35yq5y q5yq', 't3 t', '4 t3 ', '45y q45y ', 'q4yq y', '			');
 
 --
 -- Indexes for dumped tables
