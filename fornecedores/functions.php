@@ -17,7 +17,7 @@ $fornecedor = null;
 
 /**
 
- *  Listagem de Clientes
+ *  Listagem de Fornecedores
 
  */
 
@@ -30,11 +30,23 @@ function index() {
 }
 
 
+/**
 
+ *  Visualização de um Fornecedor
+
+ */
+
+function view($id = null) {
+
+  global $fornecedor;
+
+  $fornecedor = find('fornecedores', $id);
+
+}
 
 /**
 
- *  Cadastro de Clientes
+ *  Cadastro de Fornecedores
 
  */
 
@@ -54,7 +66,7 @@ function add() {
 
     $fornecedor = $_POST['fornecedor'];
 	
-    $fornecedor['modified'] = $today->format("Y/m/d");
+    $fornecedor['modified'] = $today->format("Y-m-d");
 	$fornecedor['ativo'] = true;
     
 
@@ -72,7 +84,7 @@ function add() {
 
 /**
 
- *	Atualizacao/Edicao de Cliente
+ *	Atualizacao/Edicao de Fornecedor
 
  */
 
@@ -87,7 +99,7 @@ function edit() {
   if (isset($_GET['id'])) {
 
 
-
+	
     $id = $_GET['id'];
 
 
@@ -98,7 +110,7 @@ function edit() {
 
       $fornecedor = $_POST['fornecedor'];
 
-      $fornecedor['modified'] = $now->format("Y-m-d H:i:s");
+      $fornecedor['modified'] = $now->format("Y-m-d");
 
 
 

@@ -10,9 +10,35 @@
 
 <?php include(HEADER_TEMPLATE); ?>
 
-
-
-<header>
+<script>
+		function checkfunc()
+		{
+			ativo = document.getElementById('chbExibirInativo');
+			
+			if(ativo.checked == true){
+				ativo.value = '1';
+				
+			}
+			else{
+				ativo.value = '0';
+			}
+		}
+		function onloadCheck(val)
+		{
+			ativo = document.getElementById('chbExibirInativo');
+			if(val == '1')
+			{
+				ativo.checked = true;
+				window.location.href = window.location.href;
+			}
+			else
+			{
+				ativo.checked = false;
+				window.location.href = window.location.href; 
+			}
+		}
+</script>
+<header onload="onloadCheck($_SESSION['bool'])">
 
 	<div class="row">
 
@@ -27,9 +53,13 @@
 	    	<a class="btn btn-primary" href="add.php"><i class="fa fa-plus"></i> Novo Fornecedor</a>
 
 	    	<a class="btn btn-default" href="index.php"><i class="fa fa-refresh"></i> Atualizar</a>
-
+			
+			
 	    </div>
-
+		<div class="col-sm-12 text-right">
+			<input type="checkbox" id="chbExibirInativo" name="_SESSION['bool']" onclick="checkfunc()" 
+			value="<?php echo $_SESSION['bool']=='1'?'checked':''; ?>"> Exibir inativos
+		</div>
 	</div>
 
 </header>
@@ -53,6 +83,8 @@
 
 
 <hr>
+
+
 
 
 
@@ -88,20 +120,26 @@
 
 <?php if ($fornecedores) : ?>
 
-<?php foreach ($fornecedores as $fornecedor) : ?>
+<?php 
+	
+	foreach ($fornecedores as $fornecedor) : 
 
+	if( $_SESSION['bool'] == '1'){
+		if ($fornecedor['ativo']==0) : continue; 
+		endif;
+	}
+	
+	?>
 	<tr>
 
 		<td hidden = "true"><?php echo $fornecedor['id']; ?></td>
 
 		<td><?php echo $fornecedor['nome']; ?></td>
 		
-		
 			<td><?php echo "Importador"; ?></td>
 
 			<td><?php echo "Nacional"; ?></td>
 
-		
 		<td><?php echo $fornecedor['cnpj']; ?></td>
 		
 		<td><?php echo $fornecedor['ie']; ?></td>

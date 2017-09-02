@@ -8,9 +8,6 @@
 
    <script language="JavaScript">
         function habilitaCampos(valor) {
-            dvcnpj = document.getElementById('dvcnpj');
-			dvie = document.getElementById('dvie');
-            dvci = document.getElementById('dvci');
 			ie = document.getElementById('ie');
 			cnpj = document.getElementById('cnpj');
 			ci = document.getElementById('ci');
@@ -44,10 +41,11 @@
 			ativo = document.getElementById('chbAtivo');
 			
 			if(ativo.checked == true){
-				ativo.value = "1";
+				ativo.value = 'checked';
+
 			}
 			else{
-				ativo.value = "0";
+				ativo.value = '';
 			}
 		}
 		
@@ -150,11 +148,14 @@
     </div>
 	
 	 
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-2" id="dvativo">
 	
-		<label for="fornecedor['ativo']">Ativo</label>
-		<input id="chbAtivo" type="checkbox" class="form" name="fornecedor['ativo']" onselect="checkfunc()" 
-		<?php echo $fornecedor['ativo']=='1'?'checked':''; ?>>
+	<label for="campo3">Fornecedor Ativo:</label>
+		<label class="form-control" for="fornecedor['ativo']" >
+			<input type="checkbox" class="form" name="fornecedor['ativo']" onclick="checkfunc()" 
+			value="<?php echo $fornecedor['ativo']=='1'?'checked':''; ?>">
+		</label>
+		
 
     </div>
 	

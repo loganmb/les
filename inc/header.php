@@ -6,7 +6,7 @@
 <?php 
 
 	session_start();
-
+	$_SESSION['bool'] = null;
 	
 ?>
     <meta charset="utf-8">
