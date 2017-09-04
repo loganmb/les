@@ -90,10 +90,10 @@
       <select id="slct" class="form-control" name="fornecedor['categoria']" onselect>
 	  <option value="0" selected></option>
 	  
-		<option value="1" onclick="habilitaCampos('1')" 
+		<option value="1" 
 		<?php echo $fornecedor['categoria']=='1'?'selected':''; ?> >Importador</option>
 		
-  		<option value="2" onclick="habilitaCampos('2')" 
+  		<option value="2" 
 		<?php echo $fornecedor['categoria']=='2'?'selected':''; ?> >Nacional</option>
 		
 	  </select>
@@ -150,13 +150,16 @@
 	 
     <div class="form-group col-md-2" id="dvativo">
 	
-	<label for="campo3">Fornecedor Ativo:</label>
-		<label class="form-control" for="fornecedor['ativo']" >
-			<input type="checkbox" class="form" name="fornecedor['ativo']" onclick="checkfunc()" 
-			value="<?php echo $fornecedor['ativo']=='1'?'checked':''; ?>">
-		</label>
+      <select id="slAtivo" class="form-control" name="fornecedor['ativo']" onselect>
+	  <option value="0" selected></option>
+	  
+		<option value="1" onclick="habilitaCampos('1')" 
+		<?php echo $fornecedor['ativo']=='1'?'selected':''; ?> >Ativo</option>
 		
-
+  		<option value="0" onclick="habilitaCampos('2')" 
+		<?php echo $fornecedor['ativo']=='0'?'selected':''; ?> >Inativo</option>
+		
+	  </select>
     </div>
 	
   </div>
