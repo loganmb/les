@@ -150,6 +150,7 @@
 	 
     <div class="form-group col-md-2" id="dvativo">
 	
+	 <label for="campo3">Status</label>
       <select id="slAtivo" class="form-control" name="fornecedor['ativo']" onselect>
 	  <option value="0" selected></option>
 	  

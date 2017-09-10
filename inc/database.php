@@ -149,9 +149,9 @@ function find_all( $table ) {
 
 */
 
+
+
 function save($table = null, $data = null) {
-
-
 
   $database = open_database();
 
@@ -187,13 +187,17 @@ function save($table = null, $data = null) {
 
   $sql = "INSERT INTO " . $table . "($columns)" . " VALUES " . "($values);";
 
+	$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+	$date = $now->format("Y-m-d h:m:s");
 
 
   try {
 
     $database->query($sql);
 
-
+	$sql = "INSERT INTO auditoria (id, operacao, data, $columns)" . " VALUES " . "(".$data['id'].",'insert', '".$date."', $values);";
+	
+	$database->query($sql);
 
     $_SESSION['message'] = 'Registro cadastrado com sucesso.';
 
@@ -230,7 +234,7 @@ function update($table = null, $id = 0, $data = null) {
 
 
   $database = open_database();
-
+	
 
 
   $items = null;
@@ -242,7 +246,25 @@ function update($table = null, $id = 0, $data = null) {
     $items .= trim($key, "'") . "='$value',";
 
   }
+  $columns = null;
 
+  $values = null;
+    foreach ($data as $key => $value) {
+
+    $columns .= trim($key, "'") . ",";
+
+    $values .= "'$value',";
+
+  }
+
+
+
+  // remove a ultima virgula
+
+  $columns = rtrim($columns, ',');
+
+  $values = rtrim($values, ',');
+  
 
 
   // remove a ultima virgula
@@ -256,14 +278,16 @@ function update($table = null, $id = 0, $data = null) {
   $sql .= " SET $items";
 
   $sql .= " WHERE id=" . $id . ";";
-
-
-
+	$date = null;
+	$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+	$date = $now->format("Y-m-d h:m:s");
   try {
 
     $database->query($sql);
 
-
+	$sql = "INSERT INTO auditoria (id, operacao, data, $columns)" . " VALUES " . "(".$id.",'update', '".$date."', $values);";
+	
+	$database->query($sql);
 
     $_SESSION['message'] = 'Registro atualizado com sucesso.';
 
@@ -280,6 +304,83 @@ function update($table = null, $id = 0, $data = null) {
     $_SESSION['type'] = 'danger';
 
   } 
+
+
+
+  close_database($database);
+
+}
+
+
+/**
+
+ *  Remove uma linha de uma tabela pelo ID do registro
+
+ */
+
+function remove( $table = null, $id = null, $data = null ) {
+
+
+
+  $database = open_database();
+
+	
+
+    try {
+
+		if ($id) {
+
+
+
+		  $sql = "DELETE FROM " . $table . " WHERE id = " . $id;
+
+		  $result = $database->query($sql);
+
+
+
+			if ($result = $database->query($sql)) {   	
+
+				$_SESSION['message'] = "Registro Removido com Sucesso.";
+
+				$_SESSION['type'] = 'success';
+				
+				$columns = null;
+
+				$values = null;
+
+				//print_r($data);
+
+				foreach ($data as $key => $value) {
+
+					$columns .= trim($key, "'") . ",";
+
+					$values .= "'$value',";
+
+				}
+
+				  // remove a ultima virgula
+
+				$columns = rtrim($columns, ',');
+
+				$values = rtrim($values, ',');
+				$date = null;
+	$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+	$date = $now->format("Y-m-d h:m:s");
+				$sql = "INSERT INTO auditoria (id, operacao, data, $columns)" . " VALUES " . "(".$data['id'].", 'delete', '".$date."', $values);";
+				$database->query($sql);
+			}
+
+		}
+
+	} catch (Exception $e) { 
+
+
+
+    $_SESSION['message'] = $e->GetMessage();
+
+    $_SESSION['type'] = 'danger';
+
+  }
 
 
 

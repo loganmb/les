@@ -1,65 +1,65 @@
+
+
 <?php
 
     require_once('functions.php');
 
     index();
+	
+
+	
+?>
+
+<?php include(HEADER_TEMPLATE); 
+
+	
+	
+	if(isset($_GET['bool']))
+	{
+		$_SESSION['bool'] = $_GET['bool'];
+	}
+	
+	
 
 ?>
 
 
 
-<?php include(HEADER_TEMPLATE); ?>
-
 <script>
-		function checkfunc()
-		{
-			ativo = document.getElementById('chbExibirInativo');
-			
-			if(ativo.checked == true){
-				ativo.value = '1';
-				
-			}
-			else{
-				ativo.value = '0';
-			}
-		}
-		function onloadCheck(val)
-		{
-			ativo = document.getElementById('chbExibirInativo');
-			if(val == '1')
-			{
-				ativo.checked = true;
-				window.location.href = window.location.href;
-			}
-			else
-			{
-				ativo.checked = false;
-				window.location.href = window.location.href; 
-			}
-		}
+
 </script>
-<header onload="onloadCheck($_SESSION['bool'])">
+<header>
 
 	<div class="row">
-
+		<form action="index.php">
 		<div class="col-sm-6">
 
-			<h2>Fornecedores</h2>
+			<h2>Fornecedores </h2>
 			
 		</div>
-
+		
 		<div class="col-sm-6 text-right h2">
+			
+				
+				<a class="btn btn-primary" href="add.php"><i class="fa fa-plus"></i> Novo Fornecedor</a>
 
-	    	<a class="btn btn-primary" href="add.php"><i class="fa fa-plus"></i> Novo Fornecedor</a>
-
-	    	<a class="btn btn-default" href="index.php"><i class="fa fa-refresh"></i> Atualizar</a>
+				<input type="submit" class="btn btn-default" i class='fa fa-refresh' value=" Atualizar">
 			
 			
-	    </div>
-		<div class="col-sm-12 text-right">
-			<input type="checkbox" id="chbExibirInativo" name="_SESSION['bool']" onclick="checkfunc()" 
-			value="<?php echo $_SESSION['bool']=='1'?'checked':''; ?>"> Exibir inativos
 		</div>
+		<div class="col-sm-12 text-right">
+			<label for="">Exibir inativos</label>
+			<select name="bool" onselect>
+							  
+				<option value="0" 
+				<?php echo $_SESSION['bool']=='0'?'selected':''; ?> >Ocultar</option>
+				
+		  		<option value="1"
+				<?php echo $_SESSION['bool']=='1'?'selected':''; ?> >Exibir</option>
+				
+			</select>
+		</div>
+		</form>
 	</div>
 
 </header>
@@ -124,7 +124,7 @@
 	
 	foreach ($fornecedores as $fornecedor) : 
 
-	if( $_SESSION['bool'] == '1'){
+	if($_SESSION['bool'] == 0){
 		if ($fornecedor['ativo']==0) : continue; 
 		endif;
 	}
@@ -135,11 +135,11 @@
 		<td hidden = "true"><?php echo $fornecedor['id']; ?></td>
 
 		<td><?php echo $fornecedor['nome']; ?></td>
-		
+		<?php if($fornecedor['categoria'] == 1){ ?>
 			<td><?php echo "Importador"; ?></td>
-
+		<?php } else if($fornecedor['categoria'] == 2){ ?>
 			<td><?php echo "Nacional"; ?></td>
-
+		<?php } ?>
 		<td><?php echo $fornecedor['cnpj']; ?></td>
 		
 		<td><?php echo $fornecedor['ie']; ?></td>
