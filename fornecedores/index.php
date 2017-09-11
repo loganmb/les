@@ -157,10 +157,29 @@
 			<a href="view.php?id=<?php echo $fornecedor['id']; ?>" class="btn btn-sm btn-success"><i class="fa fa-eye"></i> Visualizar</a>
 
 			<a href="edit.php?id=<?php echo $fornecedor['id']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i> Editar</a>
-
-			<a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-modal" data-fornecedor="<?php echo $fornecedor['id']; ?>">
-
-				<i class="fa fa-trash"></i> Excluir
+			
+			<a href="#" data-fornecedor="<?php echo $fornecedor['id']; ?>"
+			
+			<?php if($fornecedor['ativo']==1){ ?>
+			
+			class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete-modal" 
+			
+			<?php }else{ ?>
+			
+			class="btn btn-sm btn btn-default" data-toggle="modal" data-target="#recover-modal" 
+			
+			<?php } ?>>
+			
+			<?php if($fornecedor['ativo']==1){ ?>
+			
+			<i class="fa fa-trash"></i> Desativar
+			
+			<?php }else{ ?>
+			
+			<i class="fa fa-refresh"></i> Reativar
+			
+			<?php } ?>
+				
 
 			</a>
 
@@ -184,6 +203,9 @@
 
 </table>
 
+
+<?php include('modal.php'); ?>
+<?php include('modal_recover.php'); ?>
 
 
 <?php include(FOOTER_TEMPLATE); ?>

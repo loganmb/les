@@ -6,7 +6,7 @@
 
   if (isset($_GET['id'])){
 
-    delete($_GET['id']);
+    recover($_GET['id']);
 
   } else {
 

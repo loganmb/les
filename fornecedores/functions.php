@@ -136,7 +136,28 @@ function edit() {
 
 }
 
+function delete($id = null) {
 
+
+
+  global $fornecedor;
+
+  $fornecedor = remove('fornecedores', $id);
+  header('location: index.php');
+
+}
+
+
+function recover($id = null) {
+
+
+
+  global $fornecedor;
+
+  $fornecedor = reactivate('fornecedores', $id);
+  header('location: index.php');
+
+}
 
 
 

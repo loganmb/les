@@ -148,9 +148,6 @@ function find_all( $table ) {
 *  Insere um registro no BD
 
 */
-
-
-
 function save($table = null, $data = null) {
 
   $database = open_database();
@@ -187,17 +184,12 @@ function save($table = null, $data = null) {
 
   $sql = "INSERT INTO " . $table . "($columns)" . " VALUES " . "($values);";
 
-	$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
-	$date = $now->format("Y-m-d h:m:s");
-
 
   try {
 
     $database->query($sql);
 
-	$sql = "INSERT INTO auditoria (id, operacao, data, $columns)" . " VALUES " . "(".$data['id'].",'insert', '".$date."', $values);";
-	
-	$database->query($sql);
+
 
     $_SESSION['message'] = 'Registro cadastrado com sucesso.';
 
@@ -318,7 +310,7 @@ function update($table = null, $id = 0, $data = null) {
 
  */
 
-function remove( $table = null, $id = null, $data = null ) {
+function remove( $table = null, $id = null) {
 
 
 
@@ -332,7 +324,7 @@ function remove( $table = null, $id = null, $data = null ) {
 
 
 
-		  $sql = "DELETE FROM " . $table . " WHERE id = " . $id;
+		  $sql = "UPDATE fornecedores SET ativo = false where id= ". $id;
 
 		  $result = $database->query($sql);
 
@@ -350,23 +342,93 @@ function remove( $table = null, $id = null, $data = null ) {
 
 				//print_r($data);
 
-				foreach ($data as $key => $value) {
+				#foreach ($data as $key => $value) {
 
-					$columns .= trim($key, "'") . ",";
+				#	$columns .= trim($key, "'") . ",";
 
-					$values .= "'$value',";
+				#	$values .= "'$value',";
 
-				}
+				#}
 
 				  // remove a ultima virgula
 
-				$columns = rtrim($columns, ',');
+				#$columns = rtrim($columns, ',');
 
-				$values = rtrim($values, ',');
+				#$values = rtrim($values, ',');
 				$date = null;
-	$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
-	$date = $now->format("Y-m-d h:m:s");
-				$sql = "INSERT INTO auditoria (id, operacao, data, $columns)" . " VALUES " . "(".$data['id'].", 'delete', '".$date."', $values);";
+				$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+				$date = $now->format("Y-m-d h:m:s");
+				$sql = "INSERT INTO auditoria (id, operacao, data, ativo)" . " VALUES " . "(".$id.", 'delete', '".$date."', false);";
+				$database->query($sql);
+			}
+
+		}
+
+	} catch (Exception $e) { 
+
+
+
+    $_SESSION['message'] = $e->GetMessage();
+
+    $_SESSION['type'] = 'danger';
+
+  }
+
+  close_database($database);
+
+}
+
+
+
+function reactivate( $table = null, $id = null) {
+
+
+
+  $database = open_database();
+
+	
+
+    try {
+
+		if ($id) {
+
+
+
+		  $sql = "UPDATE fornecedores SET ativo = true where id= ". $id;
+
+		  $result = $database->query($sql);
+
+
+
+			if ($result = $database->query($sql)) {   	
+
+				$_SESSION['message'] = "Registro recuperado com Sucesso.";
+
+				$_SESSION['type'] = 'success';
+				
+				$columns = null;
+
+				$values = null;
+
+				//print_r($data);
+
+				#foreach ($data as $key => $value) {
+
+				#	$columns .= trim($key, "'") . ",";
+
+				#	$values .= "'$value',";
+
+				#}
+
+				  // remove a ultima virgula
+
+				#$columns = rtrim($columns, ',');
+
+				#$values = rtrim($values, ',');
+				$date = null;
+				$now = date_create('now', new DateTimeZone('America/Sao_Paulo'));
+				$date = $now->format("Y-m-d h:m:s");
+				$sql = "INSERT INTO auditoria (id, operacao, data, ativo)" . " VALUES " . "(".$id.", 'recover', '".$date."', true);";
 				$database->query($sql);
 			}
 
